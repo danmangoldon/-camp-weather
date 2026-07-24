@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>Camp Mawingu Weather</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --muted: #6b6b6b;
+      --line: #e9e9e9;
+      --soft: #f7f7f5;
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      padding: 18px;
+    }
+
+    .widget {
+      width: 100%;
+      max-width: 980px;
+      margin: 0 auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .top {
+      display: grid;
+      grid-template-columns: minmax(220px, 1.05fr) minmax(300px, 1.6fr);
+      gap: 24px;
+      padding: 24px;
+      align-items: stretch;
+    }
+
+    .eyebrow {
+      margin: 0 0 7px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(26px, 4vw, 42px);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .location {
+      margin: 9px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .current-card {
+      margin-top: 24px;
+      background: var(--soft);
+      border-radius: 14px;
+      padding: 18px;
+    }
+
+    .current-main {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .weather-icon {
+      width: 56px;
+      height: 56px;
+      flex: 0 0 56px;
+    }
+
+    .temp {
+      font-size: clamp(44px, 7vw, 70px);
+      line-height: .9;
+      letter-spacing: -0.06em;
+      font-weight: 700;
+    }
+
+    .condition {
+      margin-top: 7px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .summary {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .stat {
+      border-top: 1px solid #dededb;
+      padding-top: 10px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .stat-value {
+      margin-top: 4px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .forecast-wrap {
+      min-width: 0;
+    }
+
+    .forecast-title {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .forecast-title h2 {
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .updated {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: right;
+    }
+
+    .forecast {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .day {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px 10px;
+      text-align: center;
+      min-width: 0;
+    }
+
+    .day-name {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .day-date {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .day .weather-icon {
+      width: 42px;
+      height: 42px;
+      margin: 12px auto 8px;
+    }
+
+    .day-temp {
+      font-size: 17px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .day-low {
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .rain {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .footer {
+      border-top: 1px solid var(--line);
+      padding: 10px 24px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .footer a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .status {
+      padding: 28px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    @media (max-width: 760px) {
+      body { padding: 8px; }
+      .top {
+        grid-template-columns: 1fr;
+        padding: 18px;
+      }
+      .forecast {
+        grid-template-columns: repeat(5, 132px);
+        overflow-x: auto;
+        padding-bottom: 5px;
+        scroll-snap-type: x mandatory;
+      }
+      .day { scroll-snap-align: start; }
+      .footer {
+        padding: 10px 18px;
+        flex-direction: column;
+        gap: 4px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="widget" aria-live="polite">
+    <div id="loading" class="status">Loading Camp Mawingu weather…</div>
+
+    <div id="content" hidden>
+      <section class="top">
+        <div>
+          <p class="eyebrow">Live conditions</p>
+          <h1>Camp Mawingu</h1>
+          <p class="location">Ngong, Kenya · EAT</p>
+
+          <div class="current-card">
+            <div class="current-main">
+              <div id="currentIcon" class="weather-icon" aria-hidden="true"></div>
+              <div>
+                <div id="currentTemp" class="temp">--°</div>
+                <div id="currentCondition" class="condition">—</div>
+                <div id="trainingNote" class="summary"></div>
+              </div>
+            </div>
+
+            <div class="stats">
+              <div class="stat">
+                <div class="stat-label">Feels like</div>
+                <div id="feelsLike" class="stat-value">—</div>
+              </div>
+              <div class="stat">
+                <div class="stat-label">Wind</div>
+                <div id="wind" class="stat-value">—</div>
+              </div>
+              <div class="stat">
+                <div class="stat-label">Humidity</div>
+                <div id="humidity" class="stat-value">—</div>
+              </div>
+              <div class="stat">
+                <div class="stat-label">Today</div>
+                <div id="todayRange" class="stat-value">—</div>
+              </div>
+              <div class="stat">
+                <div class="stat-label">Rain chance</div>
+                <div id="rainChance" class="stat-value">—</div>
+              </div>
+              <div class="stat">
+                <div class="stat-label">Altitude</div>
+                <div class="stat-value">≈ 1,900 m</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="forecast-wrap">
+          <div class="forecast-title">
+            <h2>5-day forecast</h2>
+            <div id="updated" class="updated"></div>
+          </div>
+          <div id="forecast" class="forecast"></div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>Forecast for 1.3670° S, 36.6709° E</span>
+        <span>Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></span>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    const LAT = -1.3670155817604421;
+    const LON = 36.67093250197509;
+    const TIMEZONE = "Africa/Nairobi";
+
+    const API =
+      `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}` +
+      `&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m` +
+      `&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max` +
+      `&temperature_unit=celsius&wind_speed_unit=kmh&precipitation_unit=mm` +
+      `&timezone=${encodeURIComponent(TIMEZONE)}&forecast_days=5`;
+
+    function iconSvg(code) {
+      const sunny = `<svg viewBox="0 0 64 64" role="img" aria-label="Clear"><circle cx="32" cy="32" r="10" fill="#111"/><g stroke="#111" stroke-width="3" stroke-linecap="round"><path d="M32 5v8M32 51v8M5 32h8M51 32h8M13 13l6 6M45 45l6 6M51 13l-6 6M19 45l-6 6"/></g></svg>`;
+      const cloudy = `<svg viewBox="0 0 64 64" role="img" aria-label="Cloudy"><path d="M18 47h30a10 10 0 0 0 1-20 17 17 0 0 0-32-3A12 12 0 0 0 18 47Z" fill="none" stroke="#111" stroke-width="3"/></svg>`;
+      const partly = `<svg viewBox="0 0 64 64" role="img" aria-label="Partly cloudy"><circle cx="23" cy="22" r="8" fill="#111"/><g stroke="#111" stroke-width="2.5" stroke-linecap="round"><path d="M23 6v6M8 22h6M12 11l4 4M34 11l-4 4"/></g><path d="M20 48h29a9 9 0 0 0 1-18 15 15 0 0 0-28-2A11 11 0 0 0 20 48Z" fill="#fff" stroke="#111" stroke-width="3"/></svg>`;
+      const rain = `<svg viewBox="0 0 64 64" role="img" aria-label="Rain"><path d="M17 38h31a10 10 0 0 0 1-20 17 17 0 0 0-32-3A12 12 0 0 0 17 38Z" fill="none" stroke="#111" stroke-width="3"/><g stroke="#111" stroke-width="3" stroke-linecap="round"><path d="M22 46l-3 7M34 46l-3 7M46 46l-3 7"/></g></svg>`;
+      const storm = `<svg viewBox="0 0 64 64" role="img" aria-label="Thunderstorm"><path d="M17 35h31a10 10 0 0 0 1-20 17 17 0 0 0-32-3A12 12 0 0 0 17 35Z" fill="none" stroke="#111" stroke-width="3"/><path d="M33 39l-7 12h7l-3 8 11-14h-7l4-6Z" fill="#111"/></svg>`;
+      const fog = `<svg viewBox="0 0 64 64" role="img" aria-label="Fog"><g stroke="#111" stroke-width="3" stroke-linecap="round"><path d="M12 22h40M8 32h48M14 42h36"/></g></svg>`;
+      if (code === 0) return sunny;
+      if ([1,2].includes(code)) return partly;
+      if (code === 3) return cloudy;
+      if ([45,48].includes(code)) return fog;
+      if ([95,96,99].includes(code)) return storm;
+      return rain;
+    }
+
+    function weatherText(code) {
+      if (code === 0) return "Clear";
+      if (code === 1) return "Mainly clear";
+      if (code === 2) return "Partly cloudy";
+      if (code === 3) return "Overcast";
+      if ([45,48].includes(code)) return "Fog";
+      if ([51,53,55,56,57].includes(code)) return "Drizzle";
+      if ([61,63,65,66,67].includes(code)) return "Rain";
+      if ([71,73,75,77].includes(code)) return "Snow";
+      if ([80,81,82].includes(code)) return "Rain showers";
+      if ([85,86].includes(code)) return "Snow showers";
+      if ([95,96,99].includes(code)) return "Thunderstorms";
+      return "Variable conditions";
+    }
+
+    function trainingNote(temp, wind, rain, code) {
+      if ([95,96,99].includes(code)) return "Thunderstorms possible. Check conditions before outdoor training.";
+      if (rain >= 60) return "Wet conditions likely. Plan outdoor sessions accordingly.";
+      if (temp >= 27) return "Warm conditions. Hydration and heat management are advised.";
+      if (wind >= 30) return "Strong winds may affect exposed running routes.";
+      if (temp <= 12) return "Cool conditions, particularly for early sessions.";
+      return "Generally suitable conditions for outdoor training.";
+    }
+
+    function dayLabel(dateString, index) {
+      if (index === 0) return "Today";
+      return new Intl.DateTimeFormat("en-GB", {
+        weekday: "short",
+        timeZone: TIMEZONE
+      }).format(new Date(dateString + "T12:00:00"));
+    }
+
+    function shortDate(dateString) {
+      return new Intl.DateTimeFormat("en-GB", {
+        day: "numeric",
+        month: "short",
+        timeZone: TIMEZONE
+      }).format(new Date(dateString + "T12:00:00"));
+    }
+
+    function round(value) {
+      return Math.round(Number(value));
+    }
+
+    async function loadWeather() {
+      try {
+        const response = await fetch(API, { cache: "no-store" });
+        if (!response.ok) throw new Error(`Weather API returned ${response.status}`);
+        const data = await response.json();
+
+        const c = data.current;
+        const d = data.daily;
+
+        document.getElementById("currentIcon").innerHTML = iconSvg(c.weather_code);
+        document.getElementById("currentTemp").textContent = `${round(c.temperature_2m)}°`;
+        document.getElementById("currentCondition").textContent = weatherText(c.weather_code);
+        document.getElementById("trainingNote").textContent =
+          trainingNote(
+            Number(c.temperature_2m),
+            Number(c.wind_speed_10m),
+            Number(d.precipitation_probability_max[0] ?? 0),
+            c.weather_code
+          );
+        document.getElementById("feelsLike").textContent = `${round(c.apparent_temperature)}°C`;
+        document.getElementById("wind").textContent = `${round(c.wind_speed_10m)} km/h`;
+        document.getElementById("humidity").textContent = `${round(c.relative_humidity_2m)}%`;
+        document.getElementById("todayRange").textContent =
+          `${round(d.temperature_2m_max[0])}° / ${round(d.temperature_2m_min[0])}°`;
+        document.getElementById("rainChance").textContent =
+          `${round(d.precipitation_probability_max[0] ?? 0)}%`;
+
+        const forecast = document.getElementById("forecast");
+        forecast.innerHTML = d.time.map((date, i) => `
+          <article class="day">
+            <div class="day-name">${dayLabel(date, i)}</div>
+            <div class="day-date">${shortDate(date)}</div>
+            <div class="weather-icon">${iconSvg(d.weather_code[i])}</div>
+            <div class="day-temp">
+              ${round(d.temperature_2m_max[i])}°
+              <span class="day-low">/ ${round(d.temperature_2m_min[i])}°</span>
+            </div>
+            <div class="rain">Rain ${round(d.precipitation_probability_max[i] ?? 0)}%</div>
+          </article>
+        `).join("");
+
+        const updated = new Intl.DateTimeFormat("en-GB", {
+          hour: "2-digit",
+          minute: "2-digit",
+          timeZone: TIMEZONE
+        }).format(new Date());
+
+        document.getElementById("updated").textContent = `Updated ${updated} EAT`;
+        document.getElementById("loading").hidden = true;
+        document.getElementById("content").hidden = false;
+      } catch (error) {
+        console.error(error);
+        document.getElementById("loading").innerHTML =
+          `Weather data is temporarily unavailable.<br><small>Please refresh the page later.</small>`;
+      }
+    }
+
+    loadWeather();
+    setInterval(loadWeather, 15 * 60 * 1000);
+  </script>
+</body>
+</html>
