@@ -1,20 +1,18 @@
-# Camp Mawingu Weather — Refined Layout
+# Camp Mawingu Running Conditions
 
-This update adds:
+Lean, athlete-focused replacement for the previous weather dashboard.
 
-- live Camp Mawingu local time in Africa/Nairobi
-- more balanced two-column layout
-- sunrise and sunset
-- UV index
-- current visibility
-- expected daily precipitation
-- maximum wind gusts
-- calculated three-hour outdoor training window
-- reduced unused vertical space
-- responsive mobile layout
+## Layout
 
-## Upload
+- 40% left column: current running conditions, local time, rating, best session and three insights
+- 60% right column: compact five-day forecast and recommendation
+- expandable weather details across the full width
+- responsive single-column mobile layout
 
-Replace the existing `index.html` in the weather GitHub repository with the file in this package.
+## Upload to GitHub
 
-Update `YOUR_GITHUB_PAGES_WEATHER_URL` in `interact-iframe.html` if you use the included iframe snippet.
+Replace the existing `index.html` in the weather repository with this version.
+
+Update `YOUR_GITHUB_PAGES_WEATHER_URL` in `interact-iframe.html` if needed.
+
+Recommended iframe height: `520px` while the accordion is closed. If users regularly expand the details, enable iframe scrolling or use a larger height.
