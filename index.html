@@ -15,43 +15,54 @@
     html,body { margin:0; min-height:100%; background:var(--bg); color:var(--text); font-family:Arial,Helvetica,sans-serif; }
     body { padding:14px; }
     .widget { width:100%; max-width:1040px; margin:0 auto; overflow:hidden; border:1px solid var(--line); border-radius:var(--radius); background:var(--bg); }
-    .main-grid { display:grid; grid-template-columns:minmax(300px,.4fr) minmax(520px,.6fr); gap:28px; padding:24px; align-items:start; }
+    .main-grid { display:grid; grid-template-columns:minmax(0,42fr) minmax(0,58fr); gap:22px; padding:20px; align-items:start; }
     .eyebrow { margin:0 0 8px; color:var(--muted); font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
     h1 { margin:0; font-size:clamp(28px,4vw,42px); line-height:1; letter-spacing:-.04em; }
     .location-row { display:flex; flex-wrap:wrap; align-items:baseline; gap:8px 14px; margin-top:10px; }
     .location { color:var(--muted); font-size:14px; }
     .local-time { font-size:14px; font-weight:700; }
-    .conditions-card { margin-top:20px; padding:20px; border-radius:16px; background:var(--soft); }
+    .conditions-card { margin-top:12px; padding:17px; border-radius:16px; background:var(--soft); }
     .current-row { display:grid; grid-template-columns:64px 1fr; gap:16px; align-items:center; }
     .weather-icon { width:58px; height:58px; }
     .temperature { font-size:clamp(52px,8vw,76px); font-weight:700; line-height:.88; letter-spacing:-.07em; }
     .condition-text { margin-top:8px; font-size:17px; font-weight:700; }
-    .rating-row { display:flex; align-items:center; gap:9px; margin-top:18px; }
+    .rating-row { display:flex; align-items:center; gap:9px; margin-top:14px; }
     .rating-dot { width:10px; height:10px; flex:0 0 10px; border-radius:50%; background:var(--green); }
     .rating { font-size:18px; font-weight:700; }
     .rating-message { margin:7px 0 0 19px; color:var(--muted); font-size:13px; line-height:1.45; }
-    .best-session { display:grid; grid-template-columns:1fr auto; gap:12px; align-items:end; margin-top:18px; padding-top:16px; border-top:1px solid #dededb; }
+    .best-session { display:grid; grid-template-columns:1fr auto; gap:12px; align-items:end; margin-top:14px; padding-top:13px; border-top:1px solid #dededb; }
     .small-label { color:var(--muted); font-size:10px; letter-spacing:.08em; text-transform:uppercase; }
     .session-time { margin-top:5px; font-size:24px; font-weight:700; letter-spacing:-.03em; }
     .today-range { color:var(--muted); font-size:13px; text-align:right; }
-    .insights { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin-top:16px; }
-    .insight { min-width:0; padding:10px 11px; border:1px solid var(--line); border-radius:12px; background:#fff; }
+    .insights { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin-top:12px; }
+    .insight { min-width:0; padding:9px 10px; border:1px solid var(--line); border-radius:12px; background:#fff; }
     .insight-title { font-size:12px; font-weight:700; }
-    .insight-copy { margin-top:3px; color:var(--muted); font-size:11px; line-height:1.3; }
+    .insight-copy { margin-top:3px; color:var(--muted); font-size:10px; line-height:1.25; }
+    .forecast-panel { display:flex; flex-direction:column; min-width:0; height:100%; }
     .forecast-head { display:flex; align-items:baseline; justify-content:space-between; gap:14px; margin-bottom:14px; }
     .forecast-head h2 { margin:0; font-size:22px; letter-spacing:-.025em; }
     .updated { color:var(--muted); font-size:11px; white-space:nowrap; }
-    .forecast { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:8px; }
-    .day { min-width:0; padding:13px 8px; border:1px solid var(--line); border-radius:14px; text-align:center; }
+    .forecast { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+    .day { min-width:0; padding:11px 8px; border:1px solid var(--line); border-radius:14px; text-align:center; }
     .day-name { font-size:13px; font-weight:700; }
     .day-date { margin-top:2px; color:var(--muted); font-size:10px; }
-    .day .weather-icon { width:38px; height:38px; margin:10px auto 7px; }
-    .day-temp { font-size:16px; font-weight:700; white-space:nowrap; }
+    .day .weather-icon { width:34px; height:34px; margin:7px auto 5px; }
+    .day-temp { font-size:15px; font-weight:700; white-space:nowrap; }
     .day-low { color:var(--muted); font-weight:400; }
     .rain { margin-top:6px; color:var(--muted); font-size:10px; }
-    .recommendation { margin-top:16px; padding:17px 18px; border-radius:14px; background:var(--soft); }
-    .recommendation-title { font-size:13px; font-weight:700; }
-    .recommendation-copy { margin-top:6px; color:var(--muted); font-size:13px; line-height:1.45; }
+    .recommendation {
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      min-height:150px;
+      margin-top:14px;
+      padding:18px 20px;
+      border-radius:14px;
+      background:var(--soft);
+    }
+    .recommendation-title { font-size:14px; font-weight:700; }
+    .recommendation-copy { margin-top:8px; color:var(--muted); font-size:14px; line-height:1.5; }
     details { border-top:1px solid var(--line); }
     summary { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:16px 24px; cursor:pointer; list-style:none; font-size:14px; font-weight:700; user-select:none; }
     summary::-webkit-details-marker { display:none; }
@@ -61,13 +72,17 @@
     .metric { min-width:0; padding-top:10px; border-top:1px solid var(--line); }
     .metric-label { color:var(--muted); font-size:10px; letter-spacing:.07em; text-transform:uppercase; }
     .metric-value { margin-top:5px; font-size:14px; font-weight:700; }
+    .forecast-extra { grid-column:1 / -1; }
+    .extended-forecast { display:flex; flex-wrap:wrap; gap:8px 16px; margin-top:7px; font-size:12px; }
+    .extended-day { white-space:nowrap; }
+    .extended-day strong { margin-right:4px; }
     .footer { display:flex; justify-content:space-between; gap:14px; padding:10px 24px; border-top:1px solid var(--line); color:var(--muted); font-size:10px; }
     .footer a { color:inherit; text-decoration:underline; text-underline-offset:2px; }
     .status { padding:30px; color:var(--muted); text-align:center; }
-    @media (max-width:820px) {
+    @media (max-width:700px) {
       body { padding:8px; }
       .main-grid { grid-template-columns:1fr; padding:18px; }
-      .forecast { grid-template-columns:repeat(5,126px); overflow-x:auto; padding-bottom:5px; scroll-snap-type:x mandatory; }
+      .forecast { grid-template-columns:repeat(3,minmax(0,1fr)); overflow:visible; padding-bottom:0; }
       .day { scroll-snap-align:start; }
       .details-content { grid-template-columns:repeat(2,minmax(0,1fr)); padding:0 18px 18px; }
       summary { padding:15px 18px; }
@@ -121,8 +136,8 @@
             </div>
           </div>
         </div>
-        <div>
-          <div class="forecast-head"><h2>5-day forecast</h2><span id="updated" class="updated"></span></div>
+        <div class="forecast-panel">
+          <div class="forecast-head"><h2>3-day forecast</h2><span id="updated" class="updated"></span></div>
           <div id="forecast" class="forecast"></div>
           <section class="recommendation">
             <div class="recommendation-title">Today's recommendation</div>
@@ -144,6 +159,11 @@
           <div class="metric"><div class="metric-label">Sunrise</div><div id="sunrise" class="metric-value">—</div></div>
           <div class="metric"><div class="metric-label">Sunset</div><div id="sunset" class="metric-value">—</div></div>
           <div class="metric"><div class="metric-label">Altitude</div><div class="metric-value">≈ 1,900 m</div></div>
+          <div class="metric forecast-extra">
+            <div class="metric-label">Extended forecast</div>
+            <div id="extendedForecast" class="extended-forecast">—</div>
+          </div>
+
         </div>
       </details>
       <footer class="footer">
@@ -201,7 +221,17 @@
     function tempInsight(t){if(t<=12)return["Cool","Allow extra warm-up time."];if(t<=20)return["Comfortable","Suitable for endurance work."];if(t<=25)return["Warm","Hydrate and monitor effort."];return["Hot","Prioritise early sessions."]}
     function windInsight(w){if(w<12)return["Light wind",`${round(w)} km/h`];if(w<24)return["Moderate wind",`${round(w)} km/h`];return["Strong wind",`${round(w)} km/h`]}
     function rainInsight(r){if(r<20)return["Low rain risk",`${round(r)}% chance`];if(r<50)return["Possible showers",`${round(r)}% chance`];return["Wet conditions",`${round(r)}% chance`]}
-    function recommendationText(a,t,r,w,temp){let s=a.label==="Excellent"?"Conditions favour a quality outdoor session":a.label==="Good"?"Outdoor training remains suitable":a.label==="Challenging"?"Consider reducing intensity or adjusting the route":"Consider an alternative or delayed session";s+=`. The best three-hour window is ${t.window}`;if(r>=50)s+=". Rain risk is elevated";if(w>=24)s+=". Exposed routes may feel windy";if(temp>=24)s+=". Heat management is advised later in the day";return s+"."}
+    function recommendationText(a,t,r,w,temp){
+      let lead=a.label==="Excellent"?"Strong conditions for outdoor training":
+        a.label==="Good"?"Good conditions for outdoor training":
+        a.label==="Challenging"?"Adjust timing or intensity":
+        "Consider delaying or adapting the session";
+      const notes=[`Best window ${t.window}`];
+      if(r>=50)notes.push("elevated rain risk");
+      if(w>=24)notes.push("wind on exposed routes");
+      if(temp>=24)notes.push("warmer later");
+      return `${lead}. ${notes.join(" · ")}.`;
+    }
     async function loadWeather(){
       try{
         const res=await fetch(API,{cache:"no-store"});if(!res.ok)throw new Error(res.status);const data=await res.json(),c=data.current,d=data.daily,h=data.hourly;
@@ -209,7 +239,8 @@
         currentIcon.innerHTML=iconSvg(code);currentTemp.textContent=`${round(temp)}°`;currentCondition.textContent=weatherText(code);rating.textContent=`${a.label} running conditions`;ratingDot.style.background=a.colour;ratingMessage.textContent=a.message;trainingWindow.textContent=train.window;todayRange.textContent=`Today ${round(d.temperature_2m_max[0])}° / ${round(d.temperature_2m_min[0])}°`;
         const ti=tempInsight(temp),wi=windInsight(wind),ri=rainInsight(rain);insightTempTitle.textContent=ti[0];insightTempCopy.textContent=ti[1];insightWindTitle.textContent=wi[0];insightWindCopy.textContent=wi[1];insightRainTitle.textContent=ri[0];insightRainCopy.textContent=ri[1];document.getElementById("recommendation").textContent=recommendationText(a,train,rain,wind,temp);
         feelsLike.textContent=`${round(c.apparent_temperature)}°C`;humidity.textContent=`${round(c.relative_humidity_2m)}%`;document.getElementById("wind").textContent=`${round(wind)} km/h`;windGusts.textContent=`${round(d.wind_gusts_10m_max?.[0]??0)} km/h`;rainChance.textContent=`${round(rain)}%`;precipitation.textContent=`${Number(d.precipitation_sum?.[0]??0).toFixed(1)} mm`;uvIndex.textContent=uvLabel(uv);const vis=Number(c.visibility)/1000;visibility.textContent=Number.isFinite(vis)?`${round(vis)} km`:"—";sunrise.textContent=formatLocalTime(d.sunrise?.[0]);sunset.textContent=formatLocalTime(d.sunset?.[0]);
-        forecast.innerHTML=d.time.map((date,i)=>`<article class="day"><div class="day-name">${dayLabel(date,i)}</div><div class="day-date">${shortDate(date)}</div><div class="weather-icon">${iconSvg(Number(d.weather_code[i]))}</div><div class="day-temp">${round(d.temperature_2m_max[i])}° <span class="day-low">/ ${round(d.temperature_2m_min[i])}°</span></div><div class="rain">${round(d.precipitation_probability_max[i]??0)}%</div></article>`).join("");
+        forecast.innerHTML=d.time.slice(0,3).map((date,i)=>`<article class="day"><div class="day-name">${dayLabel(date,i)}</div><div class="day-date">${shortDate(date)}</div><div class="weather-icon">${iconSvg(Number(d.weather_code[i]))}</div><div class="day-temp">${round(d.temperature_2m_max[i])}° <span class="day-low">/ ${round(d.temperature_2m_min[i])}°</span></div><div class="rain">${round(d.precipitation_probability_max[i]??0)}%</div></article>`).join("");
+        extendedForecast.innerHTML=d.time.map((date,i)=>`<span class="extended-day"><strong>${dayLabel(date,i)}</strong>${round(d.temperature_2m_max[i])}° / ${round(d.temperature_2m_min[i])}° · ${round(d.precipitation_probability_max[i]??0)}%</span>`).join("");
         updated.textContent="Updated automatically";loading.hidden=true;content.hidden=false;
       }catch(e){console.error(e);loading.textContent="Weather information is temporarily unavailable. Please try again shortly."}
     }

@@ -1,18 +1,20 @@
-# Camp Mawingu Running Conditions
+# Camp Mawingu Running Conditions — Compact 3-Day Version
 
-Lean, athlete-focused replacement for the previous weather dashboard.
+This version is optimised for the actual Interact content-column width.
 
-## Layout
+## Changes
 
-- 40% left column: current running conditions, local time, rating, best session and three insights
-- 60% right column: compact five-day forecast and recommendation
-- expandable weather details across the full width
-- responsive single-column mobile layout
+- 3-day forecast in the default view
+- days 4 and 5 retained inside More weather details
+- no fixed minimum widths
+- no horizontal scrolling
+- shorter recommendation text
+- recommendation panel fills the lower-right area
+- compact 455 px closed-state iframe height
+- mobile stacking only below 700 px
 
-## Upload to GitHub
+## Upload
 
-Replace the existing `index.html` in the weather repository with this version.
+Replace the existing `index.html` in the `-camp-weather` repository.
 
-Update `YOUR_GITHUB_PAGES_WEATHER_URL` in `interact-iframe.html` if needed.
-
-Recommended iframe height: `520px` while the accordion is closed. If users regularly expand the details, enable iframe scrolling or use a larger height.
+Use the iframe code from `interact-iframe.html`.
